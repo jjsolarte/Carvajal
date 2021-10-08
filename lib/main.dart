@@ -1,4 +1,5 @@
 import 'package:carvajal/features/bloc/products_bloc.dart';
+import 'package:carvajal/features/data/products_data_source.dart';
 import 'package:carvajal/features/domain/repository/products_repository.dart';
 import 'package:carvajal/ui/login/login_ui.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +13,11 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    ProductsRepository repository = ProductsRepositoryImpl(productsDataSource: ProductsDataSourceImpl());
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context){
-          return ProductsBloc();
+          return ProductsBloc(productsRepository: repository);
         }),
       ],
       child: GestureDetector(

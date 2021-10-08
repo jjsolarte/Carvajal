@@ -6,9 +6,9 @@ part 'products_event.dart';
 part 'products_state.dart';
 
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
-  ProductsBloc({this.productsRepository}) : super(ProductsInitial());
+  ProductsBloc({required this.productsRepository}) : super(ProductsInitial());
 
-  final ProductsRepository? productsRepository;
+  final ProductsRepository productsRepository;
 
   @override
   Stream<ProductsState> mapEventToState(ProductsEvent event) async* {
@@ -20,7 +20,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   Stream<ProductsState> _mapGetAllProductsToState(
       ProductsGetAllProductsEvent event) async* {
     yield const ProductsLoadingState(msj: 'Cargando');
-    final types = await productsRepository!.getAllProducts();
+    final types = await productsRepository.getAllProducts();
     yield* types.fold((l) async* {
       yield const ProductsFailureState(msj: 'Intente más tarde');
     }, (r) async* {

@@ -14,8 +14,8 @@ class ProductsDataSourceImpl implements ProductsDataSource {
     //-->> La siguiete línea de código debe ser reemplazada por un endpoint habilitado
     const path = '/products/get_carvajal_products';
     try {
-      final response = await _dio.get(path);
-      final data = response as List;
+      //final response = await _dio.get(path);
+      //final data = response as List;
 
       //-->> La siguiete línea de código debe ser habilitada
 
