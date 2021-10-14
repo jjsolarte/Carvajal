@@ -1,7 +1,11 @@
 import 'package:carvajal/core/constants/colors_app.dart';
+import 'package:carvajal/core/hive_boxes/boxes.dart';
+import 'package:carvajal/features/models/user.dart';
+import 'package:carvajal/ui/componets/custom_alerts.dart';
 import 'package:carvajal/ui/out_products/out_products.dart';
 import 'package:carvajal/ui/register/register_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginUI extends StatefulWidget {
   const LoginUI({Key? key}) : super(key: key);
@@ -65,7 +69,7 @@ class _LoginUIState extends State<LoginUI> {
                 ),
                 const SizedBox(height: 10,),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: (){
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => const OurProductsUI()),
@@ -78,7 +82,7 @@ class _LoginUIState extends State<LoginUI> {
                       const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async{
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const RegisterUI()),
@@ -97,4 +101,23 @@ class _LoginUIState extends State<LoginUI> {
       ),
     );
   }
+
+  Future addUser(User user) async{
+    final box = Boxes.getUsers();
+    box.add(user);
+    box.put(user.id, user);
+  }
+
+  Future searchUser(String name) async{
+    final box = Boxes.getUsers();
+    if(box.get(name) != null){
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const OurProductsUI()),
+      );
+    }else{
+      CustomAlerts(context: context).showTextDialog('Usuario no encontrado');
+    }
+  }
+
 }

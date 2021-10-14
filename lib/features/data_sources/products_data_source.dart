@@ -1,9 +1,11 @@
-import 'package:carvajal/features/domain/entities/products.dart';
-import 'package:carvajal/features/domain/entities/warehouses.dart';
+import 'package:carvajal/features/models/products.dart';
+import 'package:carvajal/features/models/warehouses.dart';
 import 'package:dio/dio.dart';
 
 abstract class ProductsDataSource {
   Future<List<Products>> getAllProducts();
+
+  Future<String> addProducts(Products products);
 }
 
 class ProductsDataSourceImpl implements ProductsDataSource {
@@ -75,6 +77,29 @@ class ProductsDataSourceImpl implements ProductsDataSource {
           )
         ),
       ];
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> addProducts(Products? products) async{
+    //-->> La siguiete línea de código debe ser reemplazada por un endpoint habilitado
+    const path = '/products/add_carvajal_products';
+    final body = {
+      'product_id': products!.id,
+      'reference_one': products.name,
+      'reference_two': products.description,
+    };
+
+    try {
+      final response = await _dio.post(path,data: body);
+      final data = response.data as String;
+      //-->> La siguiete línea de código debe ser habilitada
+      // return data;
+
+      //-->> La siguiete línea de código debe ser eliminada
+      return 'Su petición está siendo procesada.';
     } catch (_) {
       rethrow;
     }

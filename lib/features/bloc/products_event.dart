@@ -8,3 +8,10 @@ class ProductsGetAllProductsEvent extends ProductsEvent{
   @override
   List<Object?> get props => [];
 }
+
+class ProductsAddProductsEvent extends ProductsEvent{
+  const ProductsAddProductsEvent({required this.product});
+  final Products? product;
+  @override
+  List<Object?> get props => [product];
+}

@@ -1,4 +1,4 @@
-import 'package:carvajal/features/domain/entities/warehouses.dart';
+import 'package:carvajal/features/models/warehouses.dart';
 
 class Products {
   Products(
